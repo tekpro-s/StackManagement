@@ -32,7 +32,8 @@ export default {
   methods: {
     auth() {
       axios
-        .post("http://localhost:8000/api/register", {
+        //.post("http://localhost:8000/api/register", {
+        .post("https://fast-shore-97226.herokuapp.com/api/register", {
           name: this.name,
           profile: this.profile,
           email: this.email,

@@ -31,7 +31,8 @@ export default {
       } else {
         console.log(this.$store.state.user.id);
         axios
-          .post("http://localhost:8000/api/stacks/", {
+          //.post("http://localhost:8000/api/stacks/", {
+          .post("https://fast-shore-97226.herokuapp.com/api/stacks/", {
             user_id: this.$store.state.user.id,
             title: this.title,
             time: this.time,

@@ -2002,7 +2002,8 @@ __webpack_require__.r(__webpack_exports__);
         alert("時間（分）を入力してください");
       } else {
         console.log(this.$store.state.user.id);
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/api/stacks/", {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a //.post("http://localhost:8000/api/stacks/", {
+        .post("https://fast-shore-97226.herokuapp.com/api/stacks/", {
           user_id: this.$store.state.user.id,
           title: this.title,
           time: this.time,
@@ -2121,9 +2122,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                data = [];
+                data = []; //const stacks = await axios.get("http://localhost:8000/api/stacks");
+
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("http://localhost:8000/api/stacks");
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("https://fast-shore-97226.herokuapp.com/api/stacks");
 
               case 3:
                 stacks = _context.sent;
@@ -2136,7 +2138,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _context.next = 8;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("http://localhost:8000/api/stacks/" + stacks.data.data[i].id).then(function (response) {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a //.get("http://localhost:8000/api/stacks/" + stacks.data.data[i].id)
+                .get("https://fast-shore-97226.herokuapp.com/api/stacks" + stacks.data.data[i].id).then(function (response) {
                   data.push(response.data);
                 });
 
@@ -2295,7 +2298,8 @@ __webpack_require__.r(__webpack_exports__);
     auth: function auth() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("http://localhost:8000/api/register", {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a //.post("http://localhost:8000/api/register", {
+      .post("https://fast-shore-97226.herokuapp.com/api/register", {
         name: this.name,
         profile: this.profile,
         email: this.email,
