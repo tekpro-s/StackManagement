@@ -29,7 +29,8 @@ export default new Vuex.Store({
   actions: {
     async login({ commit }, { email, password }) {
       const responseLogin = await axios.post(
-        "http://localhost:8000/api/login",
+        //"http://localhost:8000/api/login",
+        "https://fast-shore-97226.herokuapp.com/api/login",
         {
           email: email,
           password: password,
@@ -41,7 +42,8 @@ export default new Vuex.Store({
     logout({ commit })
      {
       axios
-        .post("http://localhost:8000/api/logout", {
+        //.post("http://localhost:8000/api/logout", {
+        .post("https://fast-shore-97226.herokuapp.com/api/logout", {
           auth: this.state.auth,
         })
         .then((response) => {

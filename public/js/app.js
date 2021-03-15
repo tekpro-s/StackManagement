@@ -39744,7 +39744,8 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
                 commit = _ref.commit;
                 email = _ref2.email, password = _ref2.password;
                 _context.next = 4;
-                return axios__WEBPACK_IMPORTED_MODULE_4___default.a.post("http://localhost:8000/api/login", {
+                return axios__WEBPACK_IMPORTED_MODULE_4___default.a.post( //"http://localhost:8000/api/login",
+                "https://fast-shore-97226.herokuapp.com/api/login", {
                   email: email,
                   password: password
                 });
@@ -39764,7 +39765,8 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
     },
     logout: function logout(_ref3) {
       var commit = _ref3.commit;
-      axios__WEBPACK_IMPORTED_MODULE_4___default.a.post("http://localhost:8000/api/logout", {
+      axios__WEBPACK_IMPORTED_MODULE_4___default.a //.post("http://localhost:8000/api/logout", {
+      .post("https://fast-shore-97226.herokuapp.com/api/logout", {
         auth: this.state.auth
       }).then(function (response) {
         console.log(response);
