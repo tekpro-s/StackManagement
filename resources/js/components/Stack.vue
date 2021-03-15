@@ -30,17 +30,17 @@ export default {
     // 積み上げ取得
     async getStacks() {
       let data = [];
-      //const stacks = await axios.get("http://localhost:8000/api/stacks");
-      const stacks = await axios.get(
-        "https://fast-shore-97226.herokuapp.com/api/stacks"
-      );
+      const stacks = await axios.get("http://localhost:8000/api/stacks");
+      // const stacks = await axios.get(
+      //   "https://fast-shore-97226.herokuapp.com/api/stacks"
+      // );
       for (let i = 0; i < stacks.data.data.length; i++) {
         await axios
-          //.get("http://localhost:8000/api/stacks/" + stacks.data.data[i].id)
-          .get(
-            "https://fast-shore-97226.herokuapp.com/api/stacks" +
-              stacks.data.data[i].id
-          )
+          .get("http://localhost:8000/api/stacks/" + stacks.data.data[i].id)
+          // .get(
+          //   "https://fast-shore-97226.herokuapp.com/api/stacks" +
+          //     stacks.data.data[i].id
+          // )
           .then((response) => {
             data.push(response.data);
           });

@@ -29,21 +29,30 @@ export default new Vuex.Store({
   actions: {
     async login({ commit }, { email, password }) {
       const responseLogin = await axios.post(
-        //"http://localhost:8000/api/login",
-        "https://fast-shore-97226.herokuapp.com/api/login",
+        "http://localhost:8000/api/login",
+        //"https://fast-shore-97226.herokuapp.com/api/login",
         {
           email: email,
           password: password,
         }
       );
+      const responseUser = await axios.get(
+        "http://localhost:8000/api/user",
+        {
+          params: {
+            email: email,
+          },
+        }
+      );
       commit("auth", responseLogin.data.auth);
+      commit("user", responseUser.data.data[0]);
       router.replace("/home");
     },
     logout({ commit })
      {
       axios
-        //.post("http://localhost:8000/api/logout", {
-        .post("https://fast-shore-97226.herokuapp.com/api/logout", {
+        .post("http://localhost:8000/api/logout", {
+        //.post("https://fast-shore-97226.herokuapp.com/api/logout", {
           auth: this.state.auth,
         })
         .then((response) => {

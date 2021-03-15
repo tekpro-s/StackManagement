@@ -2002,8 +2002,8 @@ __webpack_require__.r(__webpack_exports__);
         alert("時間（分）を入力してください");
       } else {
         console.log(this.$store.state.user.id);
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a //.post("http://localhost:8000/api/stacks/", {
-        .post("https://fast-shore-97226.herokuapp.com/api/stacks/", {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/api/stacks/", {
+          //.post("https://fast-shore-97226.herokuapp.com/api/stacks/", {
           user_id: this.$store.state.user.id,
           title: this.title,
           time: this.time,
@@ -2122,10 +2122,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                data = []; //const stacks = await axios.get("http://localhost:8000/api/stacks");
-
+                data = [];
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("https://fast-shore-97226.herokuapp.com/api/stacks");
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("http://localhost:8000/api/stacks");
 
               case 3:
                 stacks = _context.sent;
@@ -2138,8 +2137,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _context.next = 8;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a //.get("http://localhost:8000/api/stacks/" + stacks.data.data[i].id)
-                .get("https://fast-shore-97226.herokuapp.com/api/stacks" + stacks.data.data[i].id).then(function (response) {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("http://localhost:8000/api/stacks/" + stacks.data.data[i].id) // .get(
+                //   "https://fast-shore-97226.herokuapp.com/api/stacks" +
+                //     stacks.data.data[i].id
+                // )
+                .then(function (response) {
                   data.push(response.data);
                 });
 
@@ -2298,8 +2300,8 @@ __webpack_require__.r(__webpack_exports__);
     auth: function auth() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a //.post("http://localhost:8000/api/register", {
-      .post("https://fast-shore-97226.herokuapp.com/api/register", {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("http://localhost:8000/api/register", {
+        //.post("https://fast-shore-97226.herokuapp.com/api/register", {
         name: this.name,
         profile: this.profile,
         email: this.email,
@@ -39736,7 +39738,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
   actions: {
     login: function login(_ref, _ref2) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var commit, email, password, responseLogin;
+        var commit, email, password, responseLogin, responseUser;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -39744,18 +39746,28 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
                 commit = _ref.commit;
                 email = _ref2.email, password = _ref2.password;
                 _context.next = 4;
-                return axios__WEBPACK_IMPORTED_MODULE_4___default.a.post( //"http://localhost:8000/api/login",
-                "https://fast-shore-97226.herokuapp.com/api/login", {
+                return axios__WEBPACK_IMPORTED_MODULE_4___default.a.post("http://localhost:8000/api/login", //"https://fast-shore-97226.herokuapp.com/api/login",
+                {
                   email: email,
                   password: password
                 });
 
               case 4:
                 responseLogin = _context.sent;
-                commit("auth", responseLogin.data.auth);
-                _router__WEBPACK_IMPORTED_MODULE_5__["default"].replace("/home");
+                _context.next = 7;
+                return axios__WEBPACK_IMPORTED_MODULE_4___default.a.get("http://localhost:8000/api/user", {
+                  params: {
+                    email: email
+                  }
+                });
 
               case 7:
+                responseUser = _context.sent;
+                commit("auth", responseLogin.data.auth);
+                commit("user", responseUser.data.data[0]);
+                _router__WEBPACK_IMPORTED_MODULE_5__["default"].replace("/home");
+
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -39765,8 +39777,8 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
     },
     logout: function logout(_ref3) {
       var commit = _ref3.commit;
-      axios__WEBPACK_IMPORTED_MODULE_4___default.a //.post("http://localhost:8000/api/logout", {
-      .post("https://fast-shore-97226.herokuapp.com/api/logout", {
+      axios__WEBPACK_IMPORTED_MODULE_4___default.a.post("http://localhost:8000/api/logout", {
+        //.post("https://fast-shore-97226.herokuapp.com/api/logout", {
         auth: this.state.auth
       }).then(function (response) {
         console.log(response);
