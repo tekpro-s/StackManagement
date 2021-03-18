@@ -8,6 +8,7 @@ import Example2 from './pages/Example2.vue'
 
 import Login from './view/Login.vue'
 import SignUp from './view/SignUp.vue'
+import Profile from "./view/Profile.vue";
 import Home from './view/Home.vue'
 import store from "./store/index";
  
@@ -41,7 +42,15 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
-  }
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: Profile,
+    meta: {
+      requiresAuth: true,
+    },
+  },
 ]
  
 // 5.

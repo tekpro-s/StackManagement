@@ -39,7 +39,6 @@ export default {
             comment: this.comment,
           })
           .then((response) => {
-            console.log(response);
             alert("投稿しました");
             this.share = "";
             this.$router.go({

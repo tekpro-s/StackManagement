@@ -5,11 +5,35 @@
         <th>タイトル</th>
         <th>時間（分）</th>
         <th>備考</th>
+        <th></th>
+        <th></th>
       </tr>
       <tr v-for="(value, index) in stacks" :key="index">
-        <td>{{ value.item.title }}</td>
-        <td>{{ value.item.time }}分</td>
-        <td>{{ value.item.comment }}</td>
+        <td v-if="active[index]">{{ value.item.title }}</td>
+        <input type="text" v-model="stacks[index].item.title" v-else />
+
+        <td v-if="active[index]">{{ value.item.time }}分</td>
+        <td v-else><input type="text" v-model="stacks[index].item.time" /></td>
+
+        <td v-if="active[index]">{{ value.item.comment }}</td>
+        <td v-else>
+          <input type="text" v-model="stacks[index].item.comment" />
+        </td>
+
+        <td>
+          <div @click="edit(index)">
+            <button>変更する</button>
+          </div>
+        </td>
+        <!-- シェア削除 -->
+        <td>
+          <img
+            class="icon"
+            src="../../assets/cross.png"
+            @click="del(index)"
+            alt
+          />
+        </td>
       </tr>
     </table>
   </div>
@@ -21,15 +45,68 @@ export default {
   props: ["id"],
   data() {
     return {
+      active: [],
       stacks: [],
-      path: true,
-      profile: true,
     };
   },
   methods: {
+    // 積み上げ更新
+    edit(index) {
+      if (!this.active[index]) {
+        console.log(this.active[index]);
+        console.log(
+          "http://localhost:8000/api/stacks/" + this.stacks[index].item.id
+        );
+        axios
+          .put(
+            "http://localhost:8000/api/stacks/" + this.stacks[index].item.id,
+            {
+              title: this.stacks[index].item.title,
+              time: this.stacks[index].item.time,
+              comment: this.stacks[index].item.comment,
+            }
+          )
+          .then((response) => {
+            // this.$store.dispatch("changeUserData", {
+            //   profile: this.profile,
+            // });
+            console.log(response);
+          });
+      }
+      console.log(this.active[index] + " " + index);
+      //this.active[index] = !this.active[index];
+      this.$set(this.active, index, !this.active[index]);
+      console.log(this.active[index] + " " + index);
+    },
+    // 積み上げ削除
+    del(index) {
+      // 自分の積み上げだけ消せるようにする
+      if (this.stacks[index].item.user_id == this.$store.state.user.id) {
+        axios
+          .delete(
+            "http://localhost:8000/api/stacks/" + this.stacks[index].item.id
+          )
+          .then((response) => {
+            console.log(response);
+            console.log(
+              this.stacks[index].item.user_id + " " + this.$store.state.user.id
+            );
+            this.$router.go({
+              path: this.$router.currentRoute.path,
+              force: true,
+            });
+          });
+      } else {
+        alert("自分の積み上げではありません");
+        console.log(
+          this.stacks[index].item.user_id + " " + this.$store.state.user.id
+        );
+      }
+    },
     // 積み上げ取得
     async getStacks() {
       let data = [];
+      let active = [];
       const stacks = await axios.get("http://localhost:8000/api/stacks");
       // const stacks = await axios.get(
       //   "https://fast-shore-97226.herokuapp.com/api/stacks"
@@ -43,10 +120,13 @@ export default {
           // )
           .then((response) => {
             data.push(response.data);
+            active.push(true);
           });
       }
       this.stacks = data;
+      this.active = active;
       console.log(this.stacks);
+      console.log(this.active);
     },
   },
   // 画面表示時
@@ -98,19 +178,32 @@ table th {
   width: 10%;
 }
 
-table th:after {
+/* table th:after {
   display: block;
   content: "";
   width: 30px;
   height: 2px;
   right: 20px;
-}
+} */
 
 table td {
   text-align: left;
   padding: 10px;
-  width: 30%;
+  width: 25%;
   border: solid 1px #fff;
   border-collapse: collapse;
+}
+
+table td:nth-last-child(1),
+table td:nth-last-child(2) {
+  width: 0px;
+}
+
+input {
+  color: black;
+}
+
+button {
+  color: black;
 }
 </style>

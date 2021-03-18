@@ -70,7 +70,20 @@ class StacksController extends Controller
      */
     public function update(Request $request, Stack $stack)
     {
-        //
+        $item = Stack::where('id', $stack->id)->first();
+        $item->title = $request->title;
+        $item->time = $request->time;
+        $item->comment = $request->comment;
+        $item->save();
+        if ($item) {
+            return response()->json([
+                'message' => 'Updated successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Not found',
+            ], 404);
+        }
     }
 
     /**
