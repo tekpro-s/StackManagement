@@ -7,6 +7,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\UsersController;
 
 Route::apiResource('/stacks', StacksController::class);
+Route::apiResource('/templates', TemplatesController::class);
 Route::post('/register', [RegisterController::class, 'post']);
 Route::post('/login', [LoginController::class, 'post']);
 Route::post('/logout', [LogoutController::class, 'post']);

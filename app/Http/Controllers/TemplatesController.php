@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Stack;
+use App\Template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-
-class StacksController extends Controller
+class TemplatesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,7 @@ class StacksController extends Controller
      */
     public function index()
     {
-        $items = Stack::orderByRaw('date desc,updated_at asc')->get();
+        $items = Template::all();
         return response()->json([
             'message' => 'OK',
             'data' => $items
@@ -31,12 +30,20 @@ class StacksController extends Controller
      */
     public function store(Request $request)
     {
-        $item = new Stack;
+        $item = new Template();
         $item->user_id = $request->user_id;
-        $item->title = $request->title;
-        $item->time = $request->time;
-        $item->comment = $request->comment;
-        $item->date = $request->date;
+
+        $item->title1 = $request->title1;
+        $item->time1 = $request->time1;
+        $item->comment1 = $request->comment1;
+
+        $item->title2 = $request->title2;
+        $item->time2 = $request->time2;
+        $item->comment2 = $request->comment2;
+
+        $item->title3 = $request->title3;
+        $item->time3 = $request->time3;
+        $item->comment3 = $request->comment3;
         $item->save();
         return response()->json([
             'message' => 'Share created successfully',
@@ -47,12 +54,12 @@ class StacksController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Stack  $stack
+     * @param  \App\Template  $template
      * @return \Illuminate\Http\Response
      */
-    public function show(Stack $stack)
+    public function show(Template $template)
     {
-        $item = Stack::where('id', $stack->id)->first();
+        $item = Template::where('id', $template->id)->first();
         $user_id = $item->user_id;
         $user = DB::table('users')->where('id', (int)$user_id)->first();
 
@@ -67,12 +74,12 @@ class StacksController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Stack  $stack
+     * @param  \App\Template  $template
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Stack $stack)
+    public function update(Request $request, Template $template)
     {
-        $item = Stack::where('id', $stack->id)->first();
+        $item = Template::where('id', $template->id)->first();
         $item->title = $request->title;
         $item->time = $request->time;
         $item->comment = $request->comment;
@@ -92,12 +99,12 @@ class StacksController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Stack  $stack
+     * @param  \App\Template  $template
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Stack $stack)
+    public function destroy(Template $template)
     {
-        $item = Stack::where('id', $stack->id)->delete();
+        $item = Template::where('id', $template->id)->delete();
         if ($item) {
             return response()->json(
                 ['message' => 'Share deleted successfully'],

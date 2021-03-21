@@ -2,6 +2,7 @@
   <div>
     <table border="1">
       <tr>
+        <th>日付</th>
         <th>タイトル</th>
         <th>時間（分）</th>
         <th>備考</th>
@@ -9,8 +10,11 @@
         <th></th>
       </tr>
       <tr v-for="(value, index) in stacks" :key="index">
+        <td v-if="active[index]">{{ value.item.date }}</td>
+        <td v-else><input type="text" v-model="stacks[index].item.date" /></td>
+
         <td v-if="active[index]">{{ value.item.title }}</td>
-        <input type="text" v-model="stacks[index].item.title" v-else />
+        <td v-else><input type="text" v-model="stacks[index].item.title" /></td>
 
         <td v-if="active[index]">{{ value.item.time }}分</td>
         <td v-else><input type="text" v-model="stacks[index].item.time" /></td>
@@ -54,18 +58,14 @@ export default {
     edit(index) {
       if (!this.active[index]) {
         console.log(this.active[index]);
-        console.log(
-          "http://localhost:8000/api/stacks/" + this.stacks[index].item.id
-        );
+        console.log("/api/stacks/" + this.stacks[index].item.id);
         axios
-          .put(
-            "http://localhost:8000/api/stacks/" + this.stacks[index].item.id,
-            {
-              title: this.stacks[index].item.title,
-              time: this.stacks[index].item.time,
-              comment: this.stacks[index].item.comment,
-            }
-          )
+          .put("/api/stacks/" + this.stacks[index].item.id, {
+            title: this.stacks[index].item.title,
+            time: this.stacks[index].item.time,
+            comment: this.stacks[index].item.comment,
+            date: this.stacks[index].item.date,
+          })
           .then((response) => {
             // this.$store.dispatch("changeUserData", {
             //   profile: this.profile,
@@ -83,9 +83,7 @@ export default {
       // 自分の積み上げだけ消せるようにする
       if (this.stacks[index].item.user_id == this.$store.state.user.id) {
         axios
-          .delete(
-            "http://localhost:8000/api/stacks/" + this.stacks[index].item.id
-          )
+          .delete("/api/stacks/" + this.stacks[index].item.id)
           .then((response) => {
             console.log(response);
             console.log(
@@ -107,22 +105,16 @@ export default {
     async getStacks() {
       let data = [];
       let active = [];
-      const stacks = await axios.get("http://localhost:8000/api/stacks");
-      // const stacks = await axios.get(
-      //   "https://fast-shore-97226.herokuapp.com/api/stacks"
-      // );
-      for (let i = 0; i < stacks.data.data.length; i++) {
-        await axios
-          .get("http://localhost:8000/api/stacks/" + stacks.data.data[i].id)
-          // .get(
-          //   "https://fast-shore-97226.herokuapp.com/api/stacks" +
-          //     stacks.data.data[i].id
-          // )
-          .then((response) => {
+      const stacks = await axios.get("/api/stacks");
+
+      await Promise.all(
+        stacks.data.data.map((d) => {
+          axios.get("/api/stacks/" + d.id).then((response) => {
             data.push(response.data);
             active.push(true);
           });
-      }
+        })
+      );
       this.stacks = data;
       this.active = active;
       console.log(this.stacks);
@@ -189,7 +181,7 @@ table th {
 table td {
   text-align: left;
   padding: 10px;
-  width: 25%;
+  width: 10%;
   border: solid 1px #fff;
   border-collapse: collapse;
 }

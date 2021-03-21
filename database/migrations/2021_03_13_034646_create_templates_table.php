@@ -16,9 +16,15 @@ class CreateTemplatesTable extends Migration
         Schema::create('templates', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('user_id');
-            $table->string('title');
-            $table->integer('time');
-            $table->string('comment');
+            $table->string('title1');
+            $table->integer('time1');
+            $table->string('comment1')->nullable();
+            $table->string('title2')->nullable();
+            $table->integer('time2')->nullable();
+            $table->string('comment2')->nullable();
+            $table->string('title3')->nullable();
+            $table->integer('time3')->nullable();
+            $table->string('comment3')->nullable();
             $table->timestamps();
         });
     }

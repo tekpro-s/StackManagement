@@ -17,15 +17,16 @@
         <p class="text" v-if="active">{{ profile }}</p>
         <input type="text" v-model="profile" v-else />
       </div>
-      <Stack />
+      <Template />
     </div>
   </div>
 </template>
 
 <script>
 import SideNavi from "../components/SideNavi";
-import Stack from "../components/Stack";
+import Template from "../components/Template.vue";
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -40,7 +41,7 @@ export default {
     edit() {
       if (!this.active) {
         axios
-          .put("http://localhost:8000/api/user", {
+          .put("/user", {
             email: this.$store.state.user.email,
             profile: this.profile,
           })
@@ -56,7 +57,7 @@ export default {
   },
   components: {
     SideNavi,
-    Stack,
+    Template,
   },
 };
 </script>

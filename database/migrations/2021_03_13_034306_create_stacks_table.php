@@ -18,7 +18,8 @@ class CreateStacksTable extends Migration
             $table->string('user_id');
             $table->string('title');
             $table->integer('time');
-            $table->string('comment');
+            $table->string('comment')->nullable();
+            $table->date('date');
             $table->timestamps();
         });
     }
