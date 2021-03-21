@@ -2054,7 +2054,7 @@ __webpack_require__.r(__webpack_exports__);
           console.log(this.form[i].time);
           console.log(this.form[i].comment);
           console.log(this.date);
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/stacks/", {
+          axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/stacks", {
             user_id: this.$store.state.user.id,
             title: this.form[i].title,
             time: this.form[i].time,
@@ -2079,7 +2079,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (this.form.length == 1) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/templates/", {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/templates", {
           user_id: this.$store.state.user.id,
           title1: this.form[0].title,
           time1: this.form[0].time,
@@ -2091,7 +2091,7 @@ __webpack_require__.r(__webpack_exports__);
           });
         });
       } else if (this.form.length == 2) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/templates/", {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/templates", {
           user_id: this.$store.state.user.id,
           title1: this.form[0].title,
           time1: this.form[0].time,
@@ -2106,7 +2106,7 @@ __webpack_require__.r(__webpack_exports__);
           });
         });
       } else if (this.form.length == 3) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/templates/", {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/templates", {
           user_id: this.$store.state.user.id,
           title1: this.form[0].title,
           time1: this.form[0].time,

@@ -76,7 +76,7 @@ export default {
           console.log(this.form[i].comment);
           console.log(this.date);
           axios
-            .post("/api/stacks/", {
+            .post("/api/stacks", {
               user_id: this.$store.state.user.id,
               title: this.form[i].title,
               time: this.form[i].time,
@@ -103,7 +103,7 @@ export default {
       }
       if (this.form.length == 1) {
         axios
-          .post("/api/templates/", {
+          .post("/api/templates", {
             user_id: this.$store.state.user.id,
             title1: this.form[0].title,
             time1: this.form[0].time,
@@ -117,7 +117,7 @@ export default {
           });
       } else if (this.form.length == 2) {
         axios
-          .post("/api/templates/", {
+          .post("/api/templates", {
             user_id: this.$store.state.user.id,
             title1: this.form[0].title,
             time1: this.form[0].time,
@@ -134,7 +134,7 @@ export default {
           });
       } else if (this.form.length == 3) {
         axios
-          .post("/api/templates/", {
+          .post("/api/templates", {
             user_id: this.$store.state.user.id,
             title1: this.form[0].title,
             time1: this.form[0].time,
