@@ -4,7 +4,23 @@
     <div @click="send">
       <button>投稿する</button>
     </div>
-    <div>
+    <label>
+      テンプレート登録<input type="checkbox" v-model="templateRegist" />
+    </label>
+    <br />
+    <label>
+      テンプレート選択
+      <select name="template" v-model="selected" @change="updateValue">
+        <option
+          v-for="(data, index) in templateSelect"
+          :key="index"
+          v-bind:value="data.item.id"
+        >
+          {{ data.item.id }}
+        </option>
+      </select>
+    </label>
+    <div class="form">
       <input placeholder="日付" v-model="date" />
       <div v-for="(data, index) in form" :key="index">
         <input placeholder="タイトル" v-model="data.title" />
@@ -37,6 +53,9 @@ export default {
         time3: "",
         comment3: "",
       },
+      templateRegist: false,
+      templateSelect: [],
+      selected: "",
     };
   },
   filters: {
@@ -101,57 +120,59 @@ export default {
             });
         }
       }
-      if (this.form.length == 1) {
-        axios
-          .post("/api/templates", {
-            user_id: this.$store.state.user.id,
-            title1: this.form[0].title,
-            time1: this.form[0].time,
-            comment1: this.form[0].comment,
-          })
-          .then((response) => {
-            this.$router.go({
-              path: this.$router.currentRoute.path,
-              force: true,
+      if (this.templateRegist) {
+        if (this.form.length == 1) {
+          axios
+            .post("/api/templates", {
+              user_id: this.$store.state.user.id,
+              title1: this.form[0].title,
+              time1: this.form[0].time,
+              comment1: this.form[0].comment,
+            })
+            .then((response) => {
+              this.$router.go({
+                path: this.$router.currentRoute.path,
+                force: true,
+              });
             });
-          });
-      } else if (this.form.length == 2) {
-        axios
-          .post("/api/templates", {
-            user_id: this.$store.state.user.id,
-            title1: this.form[0].title,
-            time1: this.form[0].time,
-            comment1: this.form[0].comment,
-            title2: this.form[1].title,
-            time2: this.form[1].time,
-            comment2: this.form[1].comment,
-          })
-          .then((response) => {
-            this.$router.go({
-              path: this.$router.currentRoute.path,
-              force: true,
+        } else if (this.form.length == 2) {
+          axios
+            .post("/api/templates", {
+              user_id: this.$store.state.user.id,
+              title1: this.form[0].title,
+              time1: this.form[0].time,
+              comment1: this.form[0].comment,
+              title2: this.form[1].title,
+              time2: this.form[1].time,
+              comment2: this.form[1].comment,
+            })
+            .then((response) => {
+              this.$router.go({
+                path: this.$router.currentRoute.path,
+                force: true,
+              });
             });
-          });
-      } else if (this.form.length == 3) {
-        axios
-          .post("/api/templates", {
-            user_id: this.$store.state.user.id,
-            title1: this.form[0].title,
-            time1: this.form[0].time,
-            comment1: this.form[0].comment,
-            title2: this.form[1].title,
-            time2: this.form[1].time,
-            comment2: this.form[1].comment,
-            title3: this.form[2].title,
-            time3: this.form[2].time,
-            comment3: this.form[2].comment,
-          })
-          .then((response) => {
-            this.$router.go({
-              path: this.$router.currentRoute.path,
-              force: true,
+        } else if (this.form.length == 3) {
+          axios
+            .post("/api/templates", {
+              user_id: this.$store.state.user.id,
+              title1: this.form[0].title,
+              time1: this.form[0].time,
+              comment1: this.form[0].comment,
+              title2: this.form[1].title,
+              time2: this.form[1].time,
+              comment2: this.form[1].comment,
+              title3: this.form[2].title,
+              time3: this.form[2].time,
+              comment3: this.form[2].comment,
+            })
+            .then((response) => {
+              this.$router.go({
+                path: this.$router.currentRoute.path,
+                force: true,
+              });
             });
-          });
+        }
       }
     },
     // 現在日取得
@@ -165,6 +186,59 @@ export default {
         today.getDate();
       return today;
     },
+    // 選択したテンプレートから値を取得
+    async updateValue() {
+      const template = await axios.get("/api/templates/" + this.selected);
+
+      for (let i = 0; i < 3; i++) {
+        this.form.pop();
+      }
+      console.log(template);
+      console.log(template.data.item);
+
+      this.form.push({
+        title: template.data.item.title1,
+        time: template.data.item.time1,
+        comment: template.data.item.comment1,
+      });
+
+      if (template.data.item.title2 != null) {
+        this.form.push({
+          title: template.data.item.title2,
+          time: template.data.item.time2,
+          comment: template.data.item.comment2,
+        });
+      }
+
+      if (template.data.item.title3 != null) {
+        this.form.push({
+          title: template.data.item.title3,
+          time: template.data.item.time3,
+          comment: template.data.item.comment3,
+        });
+      }
+    },
+    // テンプレートID取得
+    async getTemplates() {
+      let templateSelect = [];
+      const templates = await axios.get("/api/templates");
+
+      for (let i = 0; i < templates.data.data.length; i++) {
+        await axios
+          .get("/api/templates/" + templates.data.data[i].id)
+          .then((response) => {
+            templateSelect.push(response.data);
+          });
+      }
+
+      console.log(templateSelect);
+      this.templateSelect = templateSelect;
+      console.log(templateSelect);
+    },
+  },
+  // 画面表示時
+  created() {
+    this.getTemplates();
   },
 };
 </script>
@@ -173,7 +247,7 @@ export default {
 .stack {
   margin: 15px;
 }
-.stack input {
+.form input {
   width: 95%;
   height: 30px;
   margin-top: 5px;
@@ -183,6 +257,9 @@ export default {
   border: 1px solid white;
   background-color: #15202b;
   color: white;
+}
+.template {
+  color: black;
 }
 button {
   width: 100px;

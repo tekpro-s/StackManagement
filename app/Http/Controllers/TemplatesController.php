@@ -15,7 +15,7 @@ class TemplatesController extends Controller
      */
     public function index()
     {
-        $items = Template::all();
+        $items = Template::orderByRaw('id asc')->get();
         return response()->json([
             'message' => 'OK',
             'data' => $items

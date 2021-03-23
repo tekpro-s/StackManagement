@@ -1967,10 +1967,34 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2012,12 +2036,15 @@ __webpack_require__.r(__webpack_exports__);
         title3: "",
         time3: "",
         comment3: ""
-      }
+      },
+      templateRegist: false,
+      templateSelect: [],
+      selected: ""
     };
   },
   filters: {
     moment: function moment(date) {
-      return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).format("YYYY/MM/DD HH:mm");
+      return moment__WEBPACK_IMPORTED_MODULE_2___default()(date).format("YYYY/MM/DD HH:mm");
     }
   },
   methods: {
@@ -2054,7 +2081,7 @@ __webpack_require__.r(__webpack_exports__);
           console.log(this.form[i].time);
           console.log(this.form[i].comment);
           console.log(this.date);
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/stacks", {
+          axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/stacks", {
             user_id: this.$store.state.user.id,
             title: this.form[i].title,
             time: this.form[i].time,
@@ -2078,51 +2105,53 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
 
-      if (this.form.length == 1) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/templates", {
-          user_id: this.$store.state.user.id,
-          title1: this.form[0].title,
-          time1: this.form[0].time,
-          comment1: this.form[0].comment
-        }).then(function (response) {
-          _this.$router.go({
-            path: _this.$router.currentRoute.path,
-            force: true
+      if (this.templateRegist) {
+        if (this.form.length == 1) {
+          axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/templates", {
+            user_id: this.$store.state.user.id,
+            title1: this.form[0].title,
+            time1: this.form[0].time,
+            comment1: this.form[0].comment
+          }).then(function (response) {
+            _this.$router.go({
+              path: _this.$router.currentRoute.path,
+              force: true
+            });
           });
-        });
-      } else if (this.form.length == 2) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/templates", {
-          user_id: this.$store.state.user.id,
-          title1: this.form[0].title,
-          time1: this.form[0].time,
-          comment1: this.form[0].comment,
-          title2: this.form[1].title,
-          time2: this.form[1].time,
-          comment2: this.form[1].comment
-        }).then(function (response) {
-          _this.$router.go({
-            path: _this.$router.currentRoute.path,
-            force: true
+        } else if (this.form.length == 2) {
+          axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/templates", {
+            user_id: this.$store.state.user.id,
+            title1: this.form[0].title,
+            time1: this.form[0].time,
+            comment1: this.form[0].comment,
+            title2: this.form[1].title,
+            time2: this.form[1].time,
+            comment2: this.form[1].comment
+          }).then(function (response) {
+            _this.$router.go({
+              path: _this.$router.currentRoute.path,
+              force: true
+            });
           });
-        });
-      } else if (this.form.length == 3) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/templates", {
-          user_id: this.$store.state.user.id,
-          title1: this.form[0].title,
-          time1: this.form[0].time,
-          comment1: this.form[0].comment,
-          title2: this.form[1].title,
-          time2: this.form[1].time,
-          comment2: this.form[1].comment,
-          title3: this.form[2].title,
-          time3: this.form[2].time,
-          comment3: this.form[2].comment
-        }).then(function (response) {
-          _this.$router.go({
-            path: _this.$router.currentRoute.path,
-            force: true
+        } else if (this.form.length == 3) {
+          axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/templates", {
+            user_id: this.$store.state.user.id,
+            title1: this.form[0].title,
+            time1: this.form[0].time,
+            comment1: this.form[0].comment,
+            title2: this.form[1].title,
+            time2: this.form[1].time,
+            comment2: this.form[1].comment,
+            title3: this.form[2].title,
+            time3: this.form[2].time,
+            comment3: this.form[2].comment
+          }).then(function (response) {
+            _this.$router.go({
+              path: _this.$router.currentRoute.path,
+              force: true
+            });
           });
-        });
+        }
       }
     },
     // 現在日取得
@@ -2130,7 +2159,111 @@ __webpack_require__.r(__webpack_exports__);
       var today = new Date();
       today = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
       return today;
+    },
+    // 選択したテンプレートから値を取得
+    updateValue: function updateValue() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var template, i;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/templates/" + _this2.selected);
+
+              case 2:
+                template = _context.sent;
+
+                for (i = 0; i < 3; i++) {
+                  _this2.form.pop();
+                }
+
+                console.log(template);
+                console.log(template.data.item);
+
+                _this2.form.push({
+                  title: template.data.item.title1,
+                  time: template.data.item.time1,
+                  comment: template.data.item.comment1
+                });
+
+                if (template.data.item.title2 != null) {
+                  _this2.form.push({
+                    title: template.data.item.title2,
+                    time: template.data.item.time2,
+                    comment: template.data.item.comment2
+                  });
+                }
+
+                if (template.data.item.title3 != null) {
+                  _this2.form.push({
+                    title: template.data.item.title3,
+                    time: template.data.item.time3,
+                    comment: template.data.item.comment3
+                  });
+                }
+
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    // テンプレートID取得
+    getTemplates: function getTemplates() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var templateSelect, templates, i;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                templateSelect = [];
+                _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/templates");
+
+              case 3:
+                templates = _context2.sent;
+                i = 0;
+
+              case 5:
+                if (!(i < templates.data.data.length)) {
+                  _context2.next = 11;
+                  break;
+                }
+
+                _context2.next = 8;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/templates/" + templates.data.data[i].id).then(function (response) {
+                  templateSelect.push(response.data);
+                });
+
+              case 8:
+                i++;
+                _context2.next = 5;
+                break;
+
+              case 11:
+                console.log(templateSelect);
+                _this3.templateSelect = templateSelect;
+                console.log(templateSelect);
+
+              case 14:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
+  },
+  // 画面表示時
+  created: function created() {
+    this.getTemplates();
   }
 });
 
@@ -2360,6 +2493,34 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2721,7 +2882,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.stack[data-v-4f8823ed] {\n  margin: 15px;\n}\n.stack input[data-v-4f8823ed] {\n  width: 95%;\n  height: 30px;\n  margin-top: 5px;\n  margin-bottom: 15px;\n  margin-left: 10px;\n  border-radius: 10px;\n  border: 1px solid white;\n  background-color: #15202b;\n  color: white;\n}\nbutton[data-v-4f8823ed] {\n  width: 100px;\n  text-align: center;\n  padding: 8px 0 10px;\n  color: #fff;\n  background-color: #5419da;\n  border-radius: 25px;\n  display: inline-block;\n  margin: 0 0 0 auto;\n}\n", ""]);
+exports.push([module.i, "\n.stack[data-v-4f8823ed] {\n  margin: 15px;\n}\n.form input[data-v-4f8823ed] {\n  width: 95%;\n  height: 30px;\n  margin-top: 5px;\n  margin-bottom: 15px;\n  margin-left: 10px;\n  border-radius: 10px;\n  border: 1px solid white;\n  background-color: #15202b;\n  color: white;\n}\n.template[data-v-4f8823ed] {\n  color: black;\n}\nbutton[data-v-4f8823ed] {\n  width: 100px;\n  text-align: center;\n  padding: 8px 0 10px;\n  color: #fff;\n  background-color: #5419da;\n  border-radius: 25px;\n  display: inline-block;\n  margin: 0 0 0 auto;\n}\n", ""]);
 
 // exports
 
@@ -43878,8 +44039,96 @@ var render = function() {
       _c("button", [_vm._v("投稿する")])
     ]),
     _vm._v(" "),
+    _c("label", [
+      _vm._v("\n    テンプレート登録"),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.templateRegist,
+            expression: "templateRegist"
+          }
+        ],
+        attrs: { type: "checkbox" },
+        domProps: {
+          checked: Array.isArray(_vm.templateRegist)
+            ? _vm._i(_vm.templateRegist, null) > -1
+            : _vm.templateRegist
+        },
+        on: {
+          change: function($event) {
+            var $$a = _vm.templateRegist,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = null,
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 && (_vm.templateRegist = $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  (_vm.templateRegist = $$a
+                    .slice(0, $$i)
+                    .concat($$a.slice($$i + 1)))
+              }
+            } else {
+              _vm.templateRegist = $$c
+            }
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("label", [
+      _vm._v("\n    テンプレート選択\n    "),
+      _c(
+        "select",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.selected,
+              expression: "selected"
+            }
+          ],
+          attrs: { name: "template" },
+          on: {
+            change: [
+              function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.selected = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              },
+              _vm.updateValue
+            ]
+          }
+        },
+        _vm._l(_vm.templateSelect, function(data, index) {
+          return _c(
+            "option",
+            { key: index, domProps: { value: data.item.id } },
+            [_vm._v("\n        " + _vm._s(data.item.id) + "\n      ")]
+          )
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
     _c(
       "div",
+      { staticClass: "form" },
       [
         _c("input", {
           directives: [
@@ -44302,23 +44551,61 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _vm._l(_vm.templates, function(value, index) {
-          return _c("tr", { key: index }, [
-            _vm.active[index]
-              ? _c("td", [_vm._v(_vm._s(value.item.id))])
-              : _vm._e(),
+          return [
+            _c("tr", { key: "first-" + index }, [
+              _vm.active[index]
+                ? _c("td", [_vm._v(_vm._s(value.item.id))])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.active[index]
+                ? _c("td", [_vm._v(_vm._s(value.item.title1))])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.active[index]
+                ? _c("td", [_vm._v(_vm._s(value.item.time1) + "分")])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.active[index]
+                ? _c("td", [_vm._v(_vm._s(value.item.comment1))])
+                : _vm._e()
+            ]),
             _vm._v(" "),
-            _vm.active[index]
-              ? _c("td", [_vm._v(_vm._s(value.item.title1))])
-              : _vm._e(),
+            _c("tr", { key: "second-" + index }, [
+              _vm.active[index]
+                ? _c("td", [_vm._v(_vm._s(value.item.id))])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.active[index]
+                ? _c("td", [_vm._v(_vm._s(value.item.title2))])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.active[index]
+                ? _c("td", [_vm._v(_vm._s(value.item.time2) + "分")])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.active[index]
+                ? _c("td", [_vm._v(_vm._s(value.item.comment2))])
+                : _vm._e()
+            ]),
             _vm._v(" "),
-            _vm.active[index]
-              ? _c("td", [_vm._v(_vm._s(value.item.time1) + "分")])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.active[index]
-              ? _c("td", [_vm._v(_vm._s(value.item.comment1))])
-              : _vm._e()
-          ])
+            _c("tr", { key: "third-" + index }, [
+              _vm.active[index]
+                ? _c("td", [_vm._v(_vm._s(value.item.id))])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.active[index]
+                ? _c("td", [_vm._v(_vm._s(value.item.title3))])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.active[index]
+                ? _c("td", [_vm._v(_vm._s(value.item.time3) + "分")])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.active[index]
+                ? _c("td", [_vm._v(_vm._s(value.item.comment3))])
+                : _vm._e()
+            ])
+          ]
         })
       ],
       2

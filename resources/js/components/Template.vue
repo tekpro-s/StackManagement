@@ -9,19 +9,47 @@
         <th></th>
         <th></th>
       </tr>
-      <tr v-for="(value, index) in templates" :key="index">
-        <td v-if="active[index]">{{ value.item.id }}</td>
-        <!-- <td v-else><input type="text" v-model="stacks[index].item.date" /></td> -->
+      <template v-for="(value, index) in templates">
+        <tr :key="`first-${index}`">
+          <td v-if="active[index]">{{ value.item.id }}</td>
+          <!-- <td v-else><input type="text" v-model="stacks[index].item.date" /></td> -->
 
-        <td v-if="active[index]">{{ value.item.title1 }}</td>
-        <!-- <td v-else><input type="text" v-model="stacks[index].item.title" /></td> -->
+          <td v-if="active[index]">{{ value.item.title1 }}</td>
+          <!-- <td v-else><input type="text" v-model="stacks[index].item.title" /></td> -->
 
-        <td v-if="active[index]">{{ value.item.time1 }}分</td>
-        <!-- <td v-else><input type="text" v-model="stacks[index].item.time" /></td> -->
+          <td v-if="active[index]">{{ value.item.time1 }}分</td>
+          <!-- <td v-else><input type="text" v-model="stacks[index].item.time" /></td> -->
 
-        <td v-if="active[index]">{{ value.item.comment1 }}</td>
-        <!-- <td v-else><input type="text" v-model="stacks[index].item.comment" /></td> -->
-      </tr>
+          <td v-if="active[index]">{{ value.item.comment1 }}</td>
+          <!-- <td v-else><input type="text" v-model="stacks[index].item.comment" /></td> -->
+        </tr>
+        <tr :key="`second-${index}`">
+          <td v-if="active[index]">{{ value.item.id }}</td>
+          <!-- <td v-else><input type="text" v-model="stacks[index].item.date" /></td> -->
+
+          <td v-if="active[index]">{{ value.item.title2 }}</td>
+          <!-- <td v-else><input type="text" v-model="stacks[index].item.title" /></td> -->
+
+          <td v-if="active[index]">{{ value.item.time2 }}分</td>
+          <!-- <td v-else><input type="text" v-model="stacks[index].item.time" /></td> -->
+
+          <td v-if="active[index]">{{ value.item.comment2 }}</td>
+          <!-- <td v-else><input type="text" v-model="stacks[index].item.comment" /></td> -->
+        </tr>
+        <tr :key="`third-${index}`">
+          <td v-if="active[index]">{{ value.item.id }}</td>
+          <!-- <td v-else><input type="text" v-model="stacks[index].item.date" /></td> -->
+
+          <td v-if="active[index]">{{ value.item.title3 }}</td>
+          <!-- <td v-else><input type="text" v-model="stacks[index].item.title" /></td> -->
+
+          <td v-if="active[index]">{{ value.item.time3 }}分</td>
+          <!-- <td v-else><input type="text" v-model="stacks[index].item.time" /></td> -->
+
+          <td v-if="active[index]">{{ value.item.comment3 }}</td>
+          <!-- <td v-else><input type="text" v-model="stacks[index].item.comment" /></td> -->
+        </tr>
+      </template>
     </table>
   </div>
 </template>
